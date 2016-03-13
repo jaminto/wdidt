@@ -1,0 +1,43 @@
+{
+  "name": "handlewebhook",
+  "customName": false,
+  "customRole": false,
+  "handler": "handlewebhook/handler.handler",
+  "timeout": 6,
+  "memorySize": 1024,
+  "custom": {
+    "excludePatterns": [],
+    "envVars": []
+  },
+  "endpoints": [
+    {
+      "path": "indbound/github/webhook",
+      "method": "POST",
+      "type": "AWS",
+      "authorizationType": "none",
+      "apiKeyRequired": false,
+      "requestTemplates": {
+        "application/json": "{ \"X-GitHub-Event\" : \"$input.params('X-GitHub-Event')\",\"X-Hub-Signature\" : \"$input.params('X-Hub-Signature')\",\"X-GitHub-Delivery\" : \"$input.params('X-GitHub-Delivery')\",  \"eventbody\" : $input.json('$') }"
+      },
+      "requestParameters": {
+        "integration.request.header.X-Cahoots-Auth": "method.request.header.X-Cahoots-Auth",
+        "integration.request.header.X-Hub-Signature": "method.request.header.X-Hub-Signature",
+        "integration.request.header.X-GitHub-Delivery": "method.request.header.X-GitHub-Delivery"
+      },
+      "responses": {
+        "400": {
+          "statusCode": "400"
+        },
+        "default": {
+          "statusCode": "200",
+          "responseParameters": {},
+          "responseModels": {},
+          "responseTemplates": {
+            "application/json": ""
+          }
+        }
+      }
+    }
+  ],
+  "events": []
+}

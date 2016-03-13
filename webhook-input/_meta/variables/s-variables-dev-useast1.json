@@ -1,0 +1,6 @@
+{
+  "region": "us-east-1",
+  "resourcesStackName": "wdidt-dev-r",
+  "iamRoleArnLambda": "arn:aws:iam::547236974105:role/wdidt-dev-r-IamRoleLambda-L9NKEE8NFBCR",
+  "apiGatewayApi": "wdidt"
+}
